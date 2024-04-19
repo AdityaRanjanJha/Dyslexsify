@@ -20,6 +20,12 @@ app.use(function (req, res, next) {
 app.use(cors());
 
 // add your own api keys
+const API_KEY2 = "tune-de592e91-eb27-422e-a502-9fe21b329e471709284355";
+const API_KEY = "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";
+const API_KEY3 = "tune-cf938e0a-fa05-4de6-9255-9431d21056e91709285403";
+const API_KEY4 = "tune-4c4549ed-b198-4556-bb82-850cd6b715bb1709380750";
+const API_KEY5 = "f99eD2qtXQWB15ZhWi4g2NZy59jCf3TX";
+const API_KEY6 = "tune-21ab75f1-158f-4ade-a460-0033bc0267551713318278";
 
 let textData = "";
 
@@ -242,6 +248,35 @@ app.post("/completions", async (req, res) => {
       const data = await response.json();
       console.log(data.images[0]);
       res.send(data.images);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  if (req.body.service === "Meta-Llama-3-8B-Instruct") {
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${API_KEY6}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "meta-llama-3-8b-instruct",
+        messages: [
+          {
+            role: "user",
+            content: `${req.body.message}  `,
+          },
+        ],
+        max_tokens: 1000,
+      }),
+    };
+    try {
+      const response = await fetch(
+        "https://chat.tune.app/api/chat/completions",
+        options
+      );
+      const data = await response.json();
+      res.send(data);
     } catch (err) {
       console.error(err);
     }
