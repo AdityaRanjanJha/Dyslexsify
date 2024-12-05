@@ -1,4 +1,4 @@
-// console.log("Arpit is back");
+
 let lastURL = window.location.href; // Store the last URL for comparison
 
 function sendDataToServer(text) {
